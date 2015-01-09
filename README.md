@@ -11,7 +11,10 @@
 * Build draggable UI to assoc. contacts with organizations
 * Factor out into module with tests if applicable
 * Handle api error cases
-* Investigate neo4j
+* Investigate neo4j (GrapheneDB neo4j db as service, heroku addon: https://addons.heroku.com/#data-stores)
 * Populate db on start
 * Investigate heroku deploy
 * Document setup instructions in README
+
+## time log
+7pm - 
