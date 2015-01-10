@@ -17,4 +17,4 @@
 * Document setup instructions in README
 
 ## time log
-7pm - 
+3
