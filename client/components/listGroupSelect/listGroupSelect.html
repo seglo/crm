@@ -1,5 +1,5 @@
 <div class="list-group-select">
-  <h4>{{title}}</h4>
+  <h4 ng-show="listTitle">{{listTitle}}</h4>
   <div class="list-group empty" ng-show="model.length === 0">
     <a href="#" class="list-group-item disabled"><em>{{noItemsMessage}}</em></a>
   </div>
@@ -8,6 +8,6 @@
     class="list-group-item" 
     ng-repeat="item in model"
     ng-class="{active: item.selected}"                
-    ng-click="item.selected = !item.selected">{{item.name}}</a>
+    ng-click="select(item)">{{item.name}}</a>
   </div>
 </div>

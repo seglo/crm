@@ -25,14 +25,10 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-4">
-              <h4>Unassigned contacts</h4>
-              <div class="list-group contacts">
-                <a href="#" 
-                class="list-group-item" 
-                ng-repeat="contact in unassignedContacts"
-                ng-class="{active: contact.selected}"                
-                ng-click="contact.selected = !contact.selected">{{contact.name}}</a>
-              </div>
+              <div list-group-select
+              ng-model="unassignedContacts"
+              no-items-message="No contacts"
+              list-title="Unassigned contacts"></div>
             </div>
             <div class="col-lg-2" style="text-align:center;">            
               <button type="button" 
@@ -47,17 +43,10 @@
               </button>
             </div>
             <div class="col-lg-4">
-              <h4>{{selectedOrganization.name}} contacts</h4>
-              <div class="list-group empty" ng-show="selectedOrganization.contacts.length === 0">
-                <a href="#" class="list-group-item disabled"><em>No contacts</em></a>
-              </div>
-              <div class="list-group contacts">
-                <a href="#" 
-                class="list-group-item" 
-                ng-repeat="contact in selectedOrganization.contacts"
-                ng-class="{active: contact.selected}"                
-                ng-click="contact.selected = !contact.selected">{{contact.name}}</a>
-              </div>
+              <div list-group-select
+              ng-model="selectedOrganization.contacts"
+              no-items-message="No assigned contacts"
+              list-title="{{selectedOrganization.name}} contacts"></div>
             </div>
           </div>
         </div>
