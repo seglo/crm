@@ -10,11 +10,14 @@ exports.index = function(req, res) {
   //   return res.json(200, organizations);
   // });
   return res.json(200, [{
-    "name": "Avanti Systems"
+    "name": "Avanti Systems",
+    "contacts": []
   }, {
-    "name": "Empathica"
+    "name": "Empathica",
+    "contacts": []
   }, {
-    "name": "Clarity Systems"
+    "name": "Clarity Systems",
+    "contacts": []
   }]);
 };
 

@@ -11,26 +11,26 @@ angular.module('crmApp')
       $scope.allOrganizations = res[1].data;
 
       // delete me later, don't want to pre-select an org
-      $scope.selectedOrganization = $scope.allOrganizations[0];
-
-      resetContacts();
+      $scope.selectOrganization($scope.allOrganizations[0]);
     });
 
-    function resetContacts() {
-      $scope.allContacts = angular.copy(allContacts);
+    // event: change selected org
+    // TODO: when orgs and contacts are modified will this view get updated when you re-visit it?
+    $scope.selectOrganization = function(org) {
+      $scope.selectedOrganization = org;
+      $scope.unassignedContacts = _.difference(allContacts, org.contacts);
     }
 
-    $scope.organizationContacts = [];
-
     $scope.addContacts = function() {
-      $scope.organizationContacts = moveContacts($scope.allContacts, $scope.organizationContacts);
+      $scope.selectedOrganization.contacts = moveContacts($scope.unassignedContacts, $scope.selectedOrganization.contacts);
     };
 
     $scope.removeContacts = function() {
-      $scope.allContacts = moveContacts($scope.organizationContacts, $scope.allContacts);
+      $scope.unassignedContacts = moveContacts($scope.selectedOrganization.contacts, $scope.unassignedContacts);
     };
 
     function moveContacts(source, destination) {
+      // remove from source coll and de-activate 'select' state
       var selectedContacts = _.remove(source, function(contact) {
         if (contact.selected) {
           contact.selected = false;
@@ -42,32 +42,21 @@ angular.module('crmApp')
         console.log('moving', selectedContacts.length, 'contacts');
         return _.union(destination, selectedContacts);
       }
-
       console.log('select a contact');
       return destination;
     };
 
+    // $scope.addThing = function() {
+    //   if ($scope.newThing === '') {
+    //     return;
+    //   }
+    //   $http.post('/api/things', {
+    //     name: $scope.newThing
+    //   });
+    //   $scope.newThing = '';
+    // };
 
-    $scope.selectContact = function(contact) {
-      contact.selected = true;
-    }
-
-    $scope.selectOrganization = function(organization) {
-      $scope.selectedOrganization = organization;
-    }
-
-
-    $scope.addThing = function() {
-      if ($scope.newThing === '') {
-        return;
-      }
-      $http.post('/api/things', {
-        name: $scope.newThing
-      });
-      $scope.newThing = '';
-    };
-
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
-    };
+    // $scope.deleteThing = function(thing) {
+    //   $http.delete('/api/things/' + thing._id);
+    // };
   });

@@ -9,6 +9,7 @@
 ## todo
 
 * Build draggable UI to assoc. contacts with organizations
+  * Dragable UI is buggy and not mobile friendly
 * Factor out into module with tests if applicable
 * Handle api error cases
 * Investigate neo4j (GrapheneDB neo4j db as service, heroku addon: https://addons.heroku.com/#data-stores)
@@ -18,3 +19,4 @@
 
 ## time log
 3
+2

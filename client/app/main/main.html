@@ -29,8 +29,8 @@
               <div class="list-group contacts">
                 <a href="#" 
                 class="list-group-item" 
-                ng-class="{active: contact.selected}"
-                ng-repeat="contact in allContacts"
+                ng-repeat="contact in unassignedContacts"
+                ng-class="{active: contact.selected}"                
                 ng-click="contact.selected = !contact.selected">{{contact.name}}</a>
               </div>
             </div>
@@ -48,11 +48,14 @@
             </div>
             <div class="col-lg-4">
               <h4>{{selectedOrganization.name}} contacts</h4>
+              <div class="list-group empty" ng-show="selectedOrganization.contacts.length === 0">
+                <a href="#" class="list-group-item disabled"><em>No contacts</em></a>
+              </div>
               <div class="list-group contacts">
                 <a href="#" 
                 class="list-group-item" 
-                ng-class="{active: contact.selected}"
-                ng-repeat="contact in organizationContacts"
+                ng-repeat="contact in selectedOrganization.contacts"
+                ng-class="{active: contact.selected}"                
                 ng-click="contact.selected = !contact.selected">{{contact.name}}</a>
               </div>
             </div>
