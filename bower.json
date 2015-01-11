@@ -13,14 +13,13 @@
     "angular-bootstrap": "~0.12.0",
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.13"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
   },
   "resolutions": {
-    "angular": ">=1.2.*",
-    "bootstrap": "~3.3.1"
+    "angular": ">=1.2.*"
   }
 }
