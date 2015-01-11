@@ -5,6 +5,7 @@
 ## notes
 
 * Used `generator-angular-fullstack` to bootstrap a MEAN application
+* Installed neo4j on ubuntu: http://debian.neo4j.org/
 
 ## todo
 
