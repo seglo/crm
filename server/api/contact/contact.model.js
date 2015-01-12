@@ -55,7 +55,7 @@ Contact.create = function(data, callback) {
   // construct a new instance of our class with the data, so it can
   // validate and extend it, etc., if we choose to do that in the future:
   var node = db.createNode(data);
-  var user = new Contact(node);
+  var contact = new Contact(node);
   // but we do the actual persisting with a Cypher query, so we can also
   // apply a label at the same time. (the save() method doesn't support
   // that, since it uses Neo4j's REST API, which doesn't support that.)
@@ -68,7 +68,36 @@ Contact.create = function(data, callback) {
   };
   db.query(query, params, function(err, results) {
     if (err) return callback(err);
-    var user = new Contact(results[0]['contact']);
-    callback(null, user);
+    var contact = new Contact(results[0]['contact']);
+    callback(null, contact);
   });
 };
+
+Contact.delete = function(id, callback) {
+  var query = [
+    "START n=node({contactId})",
+    "OPTIONAL MATCH n-[r]-()",
+    "DELETE r, n;"
+  ].join('\n');
+  var params = {
+    contactId: id
+  };
+  db.query(query, params, function(err) {
+    callback(err);
+  });
+}
+
+Contact.update = function(id, name, callback) {
+  var query = [
+    "START n = node({contactId})",
+    "SET n.name = {contactName}",
+    "RETURN n;"
+  ].join('\n');
+  var params = {
+    contactId: id,
+    contactName: name
+  };
+  db.query(query, params, function(err) {
+    callback(err);
+  });
+}

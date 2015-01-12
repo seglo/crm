@@ -3,30 +3,62 @@
 var _ = require('lodash');
 var Contact = require('./contact.model');
 
-// Get list of contacts
 exports.index = function(req, res) {
   Contact.getAll(function(err, contacts) {
     if (err) {
       return handleError(res, err);
     }
-    return res.json(200, _.map(contacts, function(c) {
+    return res.json(200, _.map(contacts, function(o) {
       return {
-        "id": c.id,
-        "name": c.name
+        "id": o.id,
+        "name": o.name
       };
     }));
   });
 };
 
-// Creates a new contact in the DB.
+// Creates a new contact
 exports.create = function(req, res) {
-  Contact.create(req.body, function(err, contact) {
+  validateName(req, res);
+  Contact.create(req.body, function(err, o) {
     if (err) {
       return handleError(res, err);
     }
-    return res.json(201, contact);
+    return res.json(201, {
+      "id": o.id,
+      "name": o.name
+    });
   });
 };
+
+// Update a contact name
+exports.update = function(req, res) {
+  validateName(req, res);
+  Contact.update(parseInt(req.params.id), req.body.name, function(err) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.json(200);
+  });
+};
+
+// Deletes a contact relationships to organizations
+exports.delete = function(req, res) {
+  Contact.delete(parseInt(req.params.id), function(err) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.json(200);
+  });
+};
+
+function validateName(req, res) {
+  if (_.isUndefined(req.body) || req.body.name === '') {
+    return handleError(res, {
+      "message": "You must provide a name"
+    });
+  }
+}
 
 function handleError(res, err) {
   return res.send(500, err);

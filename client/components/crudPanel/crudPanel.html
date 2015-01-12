@@ -1,0 +1,29 @@
+<div class="form-header">
+  <div class="btn-group" dropdown>
+    <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>Update {{modelName}} <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="model in allModels"
+      ng-click="selectModel(model)"><a href="#">{{model.name}}</a></li>
+    </ul>
+  </div>
+  <button type="button" class="btn btn-success" ng-click="newModel()">New {{modelName}}</button>
+  <h3 ng-show="formSuccess">{{formSuccess}}</h3>
+</div>
+<div class="panel panel-default crud-panel" ng-show="selectedModel">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <form>
+          <div class="form-group" ng-class="{'has-error': formError}">
+            <label for="modelName">{{modelName}} Name</label><br />
+            <label class="control-label" for="modelName" ng-show="formError">{{formError}}</label>
+            <input type="text" class="form-control" id="modelName" placeholder="Enter name" ng-model="selectedModel.name">
+          </div>
+          <button type="button" class="btn btn-primary" ng-show="mode == 'new'" ng-click="create()">Create</button>
+          <button type="button" class="btn btn-primary" ng-show="mode == 'update'" ng-click="update()">Update</button>
+          <button type="button" class="btn btn-danger" ng-show="mode == 'update'" ng-click="delete()">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
