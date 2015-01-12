@@ -23,25 +23,24 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <div list-group-select
             ng-model="unassignedContacts"
             no-items-message="No contacts"
             list-title="Unassigned contacts"></div>
           </div>
-          <div class="col-lg-2" style="text-align:center;">            
+          <div class="col-lg-2" style="text-align:center;">  
+            <div class="hidden-xs hidden-sm hidden-md lg-height-spacer"></div>
+            <div class="hidden-lg xs-height-spacer"></div>
             <button type="button" 
             class="btn btn-primary add-contact" 
-            ng-click="addContacts()">
-              Add <span class="glyphicon glyphicon-plus-sign"></span>
-            </button>
+            ng-click="addContacts()">Add</button>
             <button type="button" 
             class="btn btn-danger remove-contact" 
-            ng-click="removeContacts()">
-              Remove <span class="glyphicon glyphicon-minus-sign"></span>
-            </button>
+            ng-click="removeContacts()">Remove</button>
+            <div class="hidden-lg xs-height-spacer"></div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <div list-group-select
             ng-model="selectedOrganization.contacts"
             no-items-message="No assigned contacts"

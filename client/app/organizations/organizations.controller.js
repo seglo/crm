@@ -26,15 +26,17 @@ angular.module('crmApp')
       }).then(function(res) {
         $scope.allOrganizations.push(res.data);
         $scope.selectedOrganization = null;
-        $scope.formSuccess = 'Created \'' + res.data.name + '\'';
+        $scope.formSuccess = 'Created organization';
       }, handleError);
     };
 
     $scope.update = function() {
-      // TODO
-      // post selected organization to /organization/update
-      // then: success: selectedOrganization = null, populate successful operation method
-      // then: error: populate $scope.formError
+      $http.put('/api/organizations/' + $scope.selectedOrganization.id, {
+        name: $scope.selectedOrganization.name
+      }).then(function(res) {
+        $scope.selectedOrganization = null;
+        $scope.formSuccess = 'Updated organization';
+      }, handleError);
     };
 
     $scope.delete = function() {

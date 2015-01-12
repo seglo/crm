@@ -95,10 +95,6 @@ Organization.create = function(data, callback) {
 };
 
 Organization.delete = function(id, callback) {
-  // use a Cypher query to delete both this user and his/her following
-  // relationships in one transaction and one network request:
-  // (note that this'll still fail if there are any relationships attached
-  // of any other types, which is good because we don't expect any.)
   var query = [
     // 'MATCH (org:Organization)',
     // 'WHERE ID(org) = {organizationId}',
@@ -109,9 +105,24 @@ Organization.delete = function(id, callback) {
     "START n=node({organizationId})",
     "OPTIONAL MATCH n-[r]-()",
     "DELETE r, n;"
-  ].join('\n')
+  ].join('\n');
   var params = {
     organizationId: id
+  };
+  db.query(query, params, function(err) {
+    callback(err);
+  });
+}
+
+Organization.update = function(id, name, callback) {
+  var query = [
+    "START n = node({organizationId})",
+    "SET n.name = {organizationName}",
+    "RETURN n;"
+  ].join('\n');
+  var params = {
+    organizationId: id,
+    organizationName: name
   };
   db.query(query, params, function(err) {
     callback(err);
