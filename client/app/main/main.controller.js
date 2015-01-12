@@ -9,16 +9,19 @@ angular.module('crmApp')
     $q.all([$http.get('/api/contacts'), $http.get('/api/organizations')]).then(function(res) {
       allContacts = res[0].data;
       $scope.allOrganizations = res[1].data;
-
-      // delete me later, don't want to pre-select an org
-      $scope.selectOrganization($scope.allOrganizations[0]);
+      if ($scope.allOrganizations.length > 0) {
+        $scope.selectOrganization($scope.allOrganizations[0]);
+      }
     });
 
-    // event: change selected org
-    // TODO: when orgs and contacts are modified will this view get updated when you re-visit it?
     $scope.selectOrganization = function(org) {
       $scope.selectedOrganization = org;
-      $scope.unassignedContacts = _.difference(allContacts, org.contacts);
+      // i would love to use _.difference here, but it uses strict equality (===)
+      $scope.unassignedContacts = _.filter(allContacts, function(c) {
+        return !_.findWhere(org.contacts, {
+          id: c.id
+        });
+      });
     }
 
     $scope.addContacts = function() {

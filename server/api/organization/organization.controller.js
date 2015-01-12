@@ -1,24 +1,23 @@
 'use strict';
 
 var _ = require('lodash');
-//var Organization = require('./organization.model');
+var Organization = require('./organization.model');
 
-// Get list of organizations
 exports.index = function(req, res) {
-  // Organization.find(function (err, organizations) {
-  //   if(err) { return handleError(res, err); }
-  //   return res.json(200, organizations);
-  // });
-  return res.json(200, [{
-    "name": "Avanti Systems",
-    "contacts": []
-  }, {
-    "name": "Empathica",
-    "contacts": []
-  }, {
-    "name": "Clarity Systems",
-    "contacts": []
-  }]);
+  Organization.getAllWithContacts(function(err, orgs) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.json(200, _.map(orgs, function(o) {
+      return {
+        "id": o.id,
+        "name": o.name,
+        "contacts": _.map(o.contacts, function(c) {
+          return { "id": c.id, "name": c.name };
+        })
+      };
+    }));
+  });
 };
 
 // Creates a new organization in the DB.

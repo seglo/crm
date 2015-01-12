@@ -36,6 +36,20 @@ Contact.prototype.save = function(callback) {
   });
 };
 
+Contact.getAll = function(callback) {
+  var query = [
+    'MATCH (contact:Contact)',
+    'RETURN contact',
+  ].join('\n');
+  db.query(query, null, function(err, results) {
+    if (err) return callback(err);
+    var contacts = results.map(function(result) {
+      return new Contact(result['contact']);
+    });
+    callback(null, contacts);
+  });
+};
+
 // creates the user and persists (saves) it to the db, incl. indexing it:
 Contact.create = function(data, callback) {
   // construct a new instance of our class with the data, so it can

@@ -60,15 +60,15 @@ function populateData() {
     // create organizations
     "CREATE (avanti:Organization { name : 'Avanti Systems'})",
     "CREATE (empathica:Organization { name : 'Empathica'})",
-    "CREATE (umbrella: Organization { name : 'Umbrella Corp.'})",
-    "CREATE (aperture: Organization { name : 'Aperture Science'})",
+    "CREATE (umbrella:Organization { name : 'Umbrella Corp.'})",
+    "CREATE (aperture:Organization { name : 'Aperture Science'})",
     // create assignments
-    "CREATE (matt)-[:ASSIGNED_TO]->(avanti)",
-    "CREATE (jared)-[:ASSIGNED_TO]->(avanti)",
-    "CREATE (sean)-[:ASSIGNED_TO]->(empathica)",
-    "CREATE (matt)-[:ASSIGNED_TO]->(umbrella)",
-    "CREATE (jared)-[:ASSIGNED_TO]->(umbrella)",
-    "CREATE (sean)-[:ASSIGNED_TO]->(umbrella);"
+    "CREATE UNIQUE (matt)-[:ASSIGNED_TO]->(avanti)",
+    "CREATE UNIQUE (jared)-[:ASSIGNED_TO]->(avanti)",
+    "CREATE UNIQUE (sean)-[:ASSIGNED_TO]->(empathica)",
+    "CREATE UNIQUE (matt)-[:ASSIGNED_TO]->(umbrella)",
+    "CREATE UNIQUE (jared)-[:ASSIGNED_TO]->(umbrella)",
+    "CREATE UNIQUE (sean)-[:ASSIGNED_TO]->(umbrella);"
   ].join('\n');
 
   db.query(query, {}, function(err, results) {
@@ -80,4 +80,5 @@ function populateData() {
   });
 }
 
+console.log('seed neo4j db');
 clearDb();

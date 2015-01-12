@@ -1,6 +1,8 @@
 'use strict';
 
+var _ = require('lodash');
 var neo4j = require('neo4j');
+var Contact = require('../contact/contact.model');
 
 var db = new neo4j.GraphDatabase(
   process.env['NEO4J_URL'] ||
@@ -35,6 +37,39 @@ Organization.prototype.save = function(callback) {
     callback(err);
   });
 };
+
+Organization.getAll = function(callback) {
+  var query = [
+    'MATCH (org:Organization)',
+    'RETURN org',
+  ].join('\n');
+  db.query(query, null, function(err, results) {
+    if (err) return callback(err);
+    var orgs = results.map(function(result) {
+      return new Organization(result['org']);
+    });
+    callback(null, orgs);
+  });
+};
+
+Organization.getAllWithContacts = function(callback) {
+  var query = [
+    "MATCH (org:Organization)",
+    "OPTIONAL MATCH (org)<-[:ASSIGNED_TO]-(contact)", // optionally match ASSIGNED_TO relationships, returns orgs that also don't have relationships
+    "return org, collect(contact) AS contacts;"
+  ].join('\n');
+  db.query(query, null, function(err, results) {
+    if (err) return callback(err);
+    var orgs = results.map(function(result) {
+      var org = new Organization(result['org']);
+      org.contacts = _.map(result['contacts'], function(c) {
+        return new Contact(c);
+      });
+      return org;
+    });
+    callback(null, orgs);
+  });
+}
 
 // creates the user and persists (saves) it to the db, incl. indexing it:
 Organization.create = function(data, callback) {

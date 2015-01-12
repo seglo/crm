@@ -1,21 +1,21 @@
 'use strict';
 
 var _ = require('lodash');
-//var Contact = require('./contact.model');
+var Contact = require('./contact.model');
 
 // Get list of contacts
 exports.index = function(req, res) {
-  // Contact.find(function (err, contacts) {
-  //   if(err) { return handleError(res, err); }
-  //   return res.json(200, contacts);
-  // });
-  return res.json(200, [{
-    "name": "Matthew Shulz"
-  }, {
-    "name": "Sean Glover"
-  }, {
-    "name": "Jared Conway"
-  }]);
+  Contact.getAll(function(err, contacts) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.json(200, _.map(contacts, function(c) {
+      return {
+        "id": c.id,
+        "name": c.name
+      };
+    }));
+  });
 };
 
 // Creates a new contact in the DB.
