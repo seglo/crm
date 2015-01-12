@@ -13,20 +13,42 @@ exports.index = function(req, res) {
         "id": o.id,
         "name": o.name,
         "contacts": _.map(o.contacts, function(c) {
-          return { "id": c.id, "name": c.name };
+          return {
+            "id": c.id,
+            "name": c.name
+          };
         })
       };
     }));
   });
 };
 
-// Creates a new organization in the DB.
+// Creates a new organization
 exports.create = function(req, res) {
+  if (_.isUndefined(req.body) || req.body.name === '') {
+    return handleError(res, {
+      "message": "You must provide a name"
+    });
+  }
   Organization.create(req.body, function(err, organization) {
     if (err) {
       return handleError(res, err);
     }
-    return res.json(201, organization);
+    return res.json(201, {
+      "id": organization.id,
+      "name": organization.name,
+      "contacts": []
+    });
+  });
+};
+
+// Deletes an org and any contacts associated with it
+exports.delete = function(req, res) {
+  Organization.delete(parseInt(req.params.id), function(err, organization) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.json(200);
   });
 };
 

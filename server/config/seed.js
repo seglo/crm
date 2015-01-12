@@ -41,7 +41,7 @@ function createContactConstraint() {
 }
 
 function createOrganizationConstraint() {
-  db.query("CREATE CONSTRAINT ON (contact:Contact) ASSERT contact.name IS UNIQUE", {}, function(err, results) {
+  db.query("CREATE CONSTRAINT ON (org:Organization) ASSERT org.name IS UNIQUE", {}, function(err, results) {
     if (err) {
       console.log('error: create organization constraint:', err);
     } else {

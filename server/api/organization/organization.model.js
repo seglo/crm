@@ -89,7 +89,31 @@ Organization.create = function(data, callback) {
   };
   db.query(query, params, function(err, results) {
     if (err) return callback(err);
-    var user = new Organization(results[0]['org']);
-    callback(null, user);
+    var org = new Organization(results[0]['org']);
+    callback(null, org);
   });
 };
+
+Organization.delete = function(id, callback) {
+  // use a Cypher query to delete both this user and his/her following
+  // relationships in one transaction and one network request:
+  // (note that this'll still fail if there are any relationships attached
+  // of any other types, which is good because we don't expect any.)
+  var query = [
+    // 'MATCH (org:Organization)',
+    // 'WHERE ID(org) = {organizationId}',
+    // 'DELETE org',
+    // 'WITH org',
+    // 'MATCH (org) -[rel:follows]- (other)',
+    // 'DELETE rel',
+    "START n=node({organizationId})",
+    "OPTIONAL MATCH n-[r]-()",
+    "DELETE r, n;"
+  ].join('\n')
+  var params = {
+    organizationId: id
+  };
+  db.query(query, params, function(err) {
+    callback(err);
+  });
+}
