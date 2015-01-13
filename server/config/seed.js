@@ -70,7 +70,7 @@ function populateData() {
     "CREATE UNIQUE (jared)-[:ASSIGNED_TO]->(umbrella)",
     "CREATE UNIQUE (sean)-[:ASSIGNED_TO]->(umbrella);"
   ].join('\n');
-
+  //console.log(query)
   db.query(query, {}, function(err, results) {
     if (err) {
       console.log('error: populate data:', err);

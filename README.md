@@ -53,6 +53,7 @@ grunt serve
 ## Tests
 
 Builds run on push to master repo on github on Travis CI.  See latest build: https://travis-ci.org/seglo/crm.
+
 I only implemented front-end tests because that's where the bulk of the work went.  The server side controller layer is very small.  If the complexity were to get more complicated then I would re-evaluate.
 
 Client side tests are Jasmine specifications, run by the Karma test runner, using the Phantom headless browser.
@@ -69,6 +70,17 @@ Run the tests in debug mode (or using chrome) using the Karma debug server.
 grunt test:client:debug
 ```
 
+## Heroku
+
+Deploy steps
+
+```
+grunt build
+grunt buildcontrol:heroku
+cd dist
+heroku logs --tail   # watch logs
+```
+
 ## TODO
 
 * Investigate heroku deploy
@@ -77,7 +89,9 @@ grunt test:client:debug
 ## Rought amount of time spent on project
 ~15hr
 
-## Notable neo4j queries
+## Notable neo4j queries & notes
+
+neo4j Getting Starting guide: http://neo4j.com/docs/stable/tutorials-cypher.html
 
 Delete all nodes and relationships in a neo4j db
 
