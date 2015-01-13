@@ -55,7 +55,7 @@ Organization.getAll = function(callback) {
 Organization.getAllWithContacts = function(callback) {
   var query = [
     "MATCH (org:Organization)",
-    "OPTIONAL MATCH (org)<-[:ASSIGNED_TO]-(contact)", // optionally match ASSIGNED_TO relationships, returns orgs that also don't have relationships
+    "OPTIONAL MATCH (org)-[:ASSIGNED_TO]-(contact)", // optionally match ASSIGNED_TO relationships, returns orgs that also don't have relationships
     "return org, collect(contact) AS contacts;"
   ].join('\n');
   db.query(query, null, function(err, results) {

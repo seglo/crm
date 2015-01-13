@@ -109,3 +109,11 @@ MATCH (c:Contact)
 OPTIONAL MATCH o-[r]-c
 RETURN c, r, o;
 ``` 
+
+Return all orgs and collected contacts
+
+```
+MATCH (org:Organization)
+OPTIONAL MATCH (org)-[:ASSIGNED_TO]-(contact)
+return org, collect(contact) AS contacts;
+```
