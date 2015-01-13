@@ -4,7 +4,7 @@ angular.module('crmApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Assignments',
-      'stateName': 'main'
+      'stateName': 'assignments'
     },{
       'title': 'Contacts',
       'stateName': 'contacts'
@@ -14,8 +14,4 @@ angular.module('crmApp')
     }];
 
     $scope.isCollapsed = true;
-
-    $scope.isActive = function(route) {
-      return route === $location.path();
-    };
   });

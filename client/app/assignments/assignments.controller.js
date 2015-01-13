@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('crmApp')
-  .controller('MainCtrl', function($scope, $http, $q) {
+  .controller('AssignmentsCtrl', function($scope, $http, $q) {
     var allContacts = [];
     $scope.selectedContacts = null;
     $scope.selectedOrganization = null;
@@ -60,18 +60,4 @@ angular.module('crmApp')
       console.log('select a contact');
       return destination;
     };
-
-    // $scope.addThing = function() {
-    //   if ($scope.newThing === '') {
-    //     return;
-    //   }
-    //   $http.post('/api/things', {
-    //     name: $scope.newThing
-    //   });
-    //   $scope.newThing = '';
-    // };
-
-    // $scope.deleteThing = function(thing) {
-    //   $http.delete('/api/things/' + thing._id);
-    // };
   });
