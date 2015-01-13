@@ -68,7 +68,7 @@ describe('Controller: AssignmentsCtrl', function() {
 
   describe('assign contact', function() {
     beforeEach(function() {
-      $httpBackend.expectPOST('/api/organizations/1/assign/3')
+      $httpBackend.expectPOST('/api/organizations/1/assign')
         .respond();
 
       scope.unassignedContacts[0].selected = true;
@@ -87,7 +87,7 @@ describe('Controller: AssignmentsCtrl', function() {
 
   describe('unassign contact', function() {
     beforeEach(function() {
-      $httpBackend.expectDELETE('/api/organizations/1/unassign/1')
+      $httpBackend.expectPOST('/api/organizations/1/unassign')
         .respond();
 
       scope.selectedOrganization.contacts[0].selected = true;
