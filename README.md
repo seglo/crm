@@ -1,5 +1,7 @@
 # crm
 
+[![Build Status](https://travis-ci.org/seglo/crm.svg?branch=master)](https://travis-ci.org/seglo/crm)
+
 > cosmic relationship magicalness
 
 ## Introduction
@@ -50,6 +52,7 @@ grunt serve
 
 ## Tests
 
+Builds run on push to master repo on github on Travis CI.  See latest build: https://travis-ci.org/seglo/crm.
 I only implemented front-end tests because that's where the bulk of the work went.  The server side controller layer is very small.  If the complexity were to get more complicated then I would re-evaluate.
 
 Client side tests are Jasmine specifications, run by the Karma test runner, using the Phantom headless browser.
