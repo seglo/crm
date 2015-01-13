@@ -10,12 +10,12 @@ I implemented an almost MEAN stack.  I bootstrapped this project using `yeoman` 
 
 Notable technologies.
 
-* Angular
-* Bootstrap
-* Node.js
+* [Angular](https://angularjs.org/)
+* [Bootstrap](http://getbootstrap.com/)
+* [Node.js](http://nodejs.org/)
 * [neo4j](http://neo4j.com) (Graph database)
-* Jasmine/Mocha (decided not to write any server side mocha tests)
-* Grunt
+* [Jasmine](http://jasmine.github.io/)/[mocha](http://mochajs.org/) (decided not to write any server side mocha tests)
+* [Grunt](http://gruntjs.com/)
 
 See the demo on Heroku: https://crm-challenge.herokuapp.com/
 
