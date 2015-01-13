@@ -69,7 +69,7 @@ Organization.getAllWithContacts = function(callback) {
     });
     callback(null, orgs);
   });
-}
+};
 
 // creates the model and persists (saves) it to the db, incl. indexing it:
 Organization.create = function(data, callback) {
@@ -112,7 +112,7 @@ Organization.delete = function(id, callback) {
   db.query(query, params, function(err) {
     callback(err);
   });
-}
+};
 
 Organization.update = function(id, name, callback) {
   var query = [
@@ -127,4 +127,33 @@ Organization.update = function(id, name, callback) {
   db.query(query, params, function(err) {
     callback(err);
   });
-}
+};
+
+Organization.assign = function(contactId, organizationId, callback) {
+  var query = [
+    "START o = node({contactId}), c = node({organizationId})",
+    "CREATE UNIQUE(c)-[:ASSIGNED_TO]->(o)"
+  ].join('\n');
+  var params = {
+    organizationId: organizationId,
+    contactId: contactId
+  };
+  db.query(query, params, function(err) {
+    callback(err);
+  });
+};
+
+Organization.unassign = function(contactId, organizationId, callback) {
+  var query = [
+    "START o = node({contactId}), c = node({organizationId})",
+    "MATCH c-[r:ASSIGNED_TO]-o",
+    "DELETE r"
+  ].join('\n');
+  var params = {
+    organizationId: organizationId,
+    contactId: contactId
+  };
+  db.query(query, params, function(err) {
+    callback(err);
+  });
+};

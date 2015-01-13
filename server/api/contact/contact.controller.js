@@ -1,7 +1,12 @@
 'use strict';
 
 var _ = require('lodash');
+var util = require('../util');
 var Contact = require('./contact.model');
+
+var handleError = util.handleError;
+var standardHandler = util.standardHandler;
+var validateName = util.validateName;
 
 exports.index = function(req, res) {
   Contact.getAll(function(err, contacts) {
@@ -35,31 +40,13 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
   validateName(req, res);
   Contact.update(parseInt(req.params.id), req.body.name, function(err) {
-    if (err) {
-      return handleError(res, err);
-    }
-    return res.json(200);
+    return standardHandler(res, err);
   });
 };
 
 // Deletes a contact relationships to organizations
 exports.delete = function(req, res) {
   Contact.delete(parseInt(req.params.id), function(err) {
-    if (err) {
-      return handleError(res, err);
-    }
-    return res.json(200);
+    return standardHandler(res, err);
   });
 };
-
-function validateName(req, res) {
-  if (_.isUndefined(req.body) || req.body.name === '') {
-    return handleError(res, {
-      "message": "You must provide a name"
-    });
-  }
-}
-
-function handleError(res, err) {
-  return res.send(500, err);
-}
