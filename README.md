@@ -6,7 +6,7 @@
 
 ## Introduction
 
-I implemented an almost MEAN stack.  I boostraped this project using `yeoman` and the `generator-angular-fullstack` generator.  This generated a bunch of boilerplate for a fullstack MEAN application.  I kept a lot of it, but ditched Mongo in favour of trying out neo4j.  This site degrades gracefully to mobile devices, but has only been tested on my Nexus 6.  
+I implemented an almost MEAN stack.  I bootstrapped this project using `yeoman` and the `generator-angular-fullstack` generator.  This generated a bunch of boilerplate for a fullstack MEAN application.  I kept a lot of it, but ditched Mongo in favour of trying out neo4j.  This site degrades gracefully to mobile devices, but has only been tested on my Nexus 6.  
 
 Notable technologies.
 
@@ -56,7 +56,7 @@ grunt serve
 
 Builds run on push to master repo on github on Travis CI.  See latest build: https://travis-ci.org/seglo/crm.
 
-I only implemented front-end tests because that's where the bulk of the work went.  The server side controller layer is very small.  If the complexity were to get more complicated then I would re-evaluate.
+I only implemented front-end tests because that's where the bulk of the work went.  The server side controller layer is very small.  If the complexity were to grow then I would re-evaluate.
 
 Client side tests are Jasmine specifications, run by the Karma test runner, using the Phantom headless browser.
 
