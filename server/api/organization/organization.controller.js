@@ -6,7 +6,6 @@ var Organization = require('./organization.model');
 
 var handleError = util.handleError;
 var standardHandler = util.standardHandler;
-var validateName = util.validateName;
 
 exports.index = function(req, res) {
   Organization.getAllWithContacts(function(err, orgs) {
@@ -30,7 +29,11 @@ exports.index = function(req, res) {
 
 // Creates a new organization
 exports.create = function(req, res) {
-  validateName(req, res);
+  if (_.isUndefined(req.body) || req.body.name === '') {
+    return handleError(res, {
+      "message": "You must provide a name"
+    });
+  }
   Organization.create(req.body, function(err, organization) {
     if (err) {
       return handleError(res, err);
