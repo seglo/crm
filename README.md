@@ -17,6 +17,8 @@ Notable technologies.
 * Jasmine/Mocha (decided not to write any server side mocha tests)
 * Grunt
 
+See the demo on Heroku: https://crm-challenge.herokuapp.com/
+
 ## Running the project
 
 I implemented this project on an Ubuntu workstation.  This is how you run it.
@@ -81,14 +83,6 @@ cd dist
 heroku logs --tail   # watch logs
 ```
 
-## TODO
-
-* Investigate heroku deploy
-* Investigate neo4j (GrapheneDB neo4j db as service, heroku addon: https://addons.heroku.com/#data-stores)
-
-## Rought amount of time spent on project
-~15hr
-
 ## Notable neo4j queries & notes
 
 neo4j Getting Starting guide: http://neo4j.com/docs/stable/tutorials-cypher.html
@@ -117,3 +111,7 @@ MATCH (org:Organization)
 OPTIONAL MATCH (org)-[:ASSIGNED_TO]-(contact)
 return org, collect(contact) AS contacts;
 ```
+
+## Rough amount of time spent on project
+
+~18hr
