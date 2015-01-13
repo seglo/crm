@@ -3,7 +3,7 @@
 angular.module('crmApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
-      'title': 'Home',
+      'title': 'Assignments',
       'stateName': 'main'
     },{
       'title': 'Contacts',
