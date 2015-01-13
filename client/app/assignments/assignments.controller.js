@@ -25,23 +25,21 @@ angular.module('crmApp')
     }
 
     $scope.addContacts = function() {
-      _.forEach(selectedContacts($scope.unassignedContacts), function(c) {
-        $http.post('/api/organizations/' + $scope.selectedOrganization.id + '/assign/' + c.id);
-      });
+      $http.post('/api/organizations/' + $scope.selectedOrganization.id + '/assign', 
+        selectedContacts($scope.unassignedContacts));
       $scope.selectedOrganization.contacts = moveContacts($scope.unassignedContacts, $scope.selectedOrganization.contacts);
     };
 
     $scope.removeContacts = function() {
-      _.forEach(selectedContacts($scope.selectedOrganization.contacts), function(c) {
-        $http.delete('/api/organizations/' + $scope.selectedOrganization.id + '/unassign/' + c.id);
-      });
+      $http.post('/api/organizations/' + $scope.selectedOrganization.id + '/unassign',
+        selectedContacts($scope.selectedOrganization.contacts));
       $scope.unassignedContacts = moveContacts($scope.selectedOrganization.contacts, $scope.unassignedContacts);
     };
 
     function selectedContacts(source) {
-      return _.filter(source, {
-        selected: true
-      });
+      return {
+        "contactIds": _.chain(source).filter('selected').pluck('id').value()
+      };
     }
 
     function moveContacts(source, destination) {

@@ -129,31 +129,28 @@ Organization.update = function(id, name, callback) {
   });
 };
 
-Organization.assign = function(contactId, organizationId, callback) {
+Organization.assign = function(organizationId, contactIds, callback) {
   var query = [
-    "START o = node({contactId}), c = node({organizationId})",
-    "CREATE UNIQUE(c)-[:ASSIGNED_TO]->(o)"
+    "MATCH (c:Contact)",
+    "WHERE id(c) IN [" + contactIds.join(',') + "]",
+    "MATCH (o:Organization)",
+    "WHERE id(o) = " + organizationId,
+    "CREATE UNIQUE (c)-[:ASSIGNED_TO]->(o)"
   ].join('\n');
-  var params = {
-    organizationId: organizationId,
-    contactId: contactId
-  };
-  db.query(query, params, function(err) {
+  //console.log('assign q', query);
+  db.query(query, null, function(err) {
     callback(err);
   });
 };
 
-Organization.unassign = function(contactId, organizationId, callback) {
+Organization.unassign = function(organizationId, contactIds, callback) {
   var query = [
-    "START o = node({contactId}), c = node({organizationId})",
     "MATCH c-[r:ASSIGNED_TO]-o",
+    "WHERE id(o) = " + organizationId + " AND id(c) IN [" + contactIds.join(',') + "]",
     "DELETE r"
   ].join('\n');
-  var params = {
-    organizationId: organizationId,
-    contactId: contactId
-  };
-  db.query(query, params, function(err) {
+  //console.log('unassign q:', query);
+  db.query(query, null, function(err) {
     callback(err);
   });
 };

@@ -58,16 +58,16 @@ exports.delete = function(req, res) {
   });
 };
 
-// Assign a contact to an org
+// Assign contacts to an org
 exports.assign = function(req, res) {
-  Organization.assign(parseInt(req.params.contactId), parseInt(req.params.id), function(err) {
+  Organization.assign(parseInt(req.params.id), req.body.contactIds, function(err) {
     return standardHandler(res, err);
   });
 };
 
-// Unassign a contact from an org
+// Unassign contacts from an org
 exports.unassign = function(req, res) {
-  Organization.unassign(parseInt(req.params.contactId), parseInt(req.params.id), function(err) {
+  Organization.unassign(parseInt(req.params.id), req.body.contactIds, function(err) {
     return standardHandler(res, err);
   });
 };
