@@ -36,19 +36,19 @@ describe('Directive: listGroupSelect', function() {
 
     beforeEach(inject(function($compile) {
       scope.list = [];
-      element = angular.element('<div list-group-select ng-model="list"></div>');
+      element = angular.element('<div list-group-select no-items-message="No items" ng-model="list"></div>');
       element = $compile(element)(scope);
       scope.$apply();
 
       emptyListGroup = angular.element('.list-group.empty', element);
     }));
 
-    it('should say \'No items\' when empty', function() {
-      expect(angular.element('.list-group-item.disabled', emptyListGroup).text()).toBe('No items');
-    });
-
     it('should not be hidden', function() {
       expect(emptyListGroup.hasClass('ng-hide'), false); // 'No items' is visible
+    });
+
+    it('should say \'No items\' when empty', function() {
+      expect(angular.element('.list-group-item.disabled', emptyListGroup).text()).toBe('No items');
     });
   });
 
