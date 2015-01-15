@@ -2,6 +2,12 @@
 
 var _ = require('lodash');
 
+exports.emptyNameError = function(req, res) {
+  return exports.handleError(res, {
+    "message": "You must provide a name"
+  });
+};
+
 exports.standardHandler = function(res, err) {
   if (err) {
     return exports.handleError(res, err);

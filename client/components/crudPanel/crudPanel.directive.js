@@ -15,14 +15,15 @@ angular.module('crmApp')
           $scope.allModels = res.data;
         });
 
-        $scope.selectModel = function(org) {
-          $scope.formSuccess = null;
-          $scope.selectedModel = org;
+        $scope.selectModel = function(model) {
+          reset();
+          $scope.selectedModel = model;
+          $scope.name = angular.copy(model.name);
           $scope.mode = 'update';
         };
 
-        $scope.newModel = function(org) {
-          $scope.formSuccess = null;
+        $scope.newModel = function() {
+          reset();
           $scope.selectedModel = {
             "name": ""
           };
@@ -31,20 +32,19 @@ angular.module('crmApp')
 
         $scope.create = function() {
           $http.post($scope.endpoint, {
-            name: $scope.selectedModel.name
+            name: $scope.name
           }).then(function(res) {
             $scope.allModels.push(res.data);
-            $scope.selectedModel = null;
-            $scope.formSuccess = 'Created ' + $scope.modelName;
+            handleSuccess('Created');
           }, handleError);
         };
 
         $scope.update = function() {
           $http.put($scope.endpoint + '/' + $scope.selectedModel.id, {
-            name: $scope.selectedModel.name
+            name: $scope.name
           }).then(function(res) {
-            $scope.selectedModel = null;
-            $scope.formSuccess = 'Updated ' + $scope.modelName;
+            $scope.selectedModel.name = $scope.name;
+            handleSuccess('Updated');
           }, handleError);
         };
 
@@ -54,10 +54,21 @@ angular.module('crmApp')
               _.remove($scope.allModels, function(o) {
                 return o.id === $scope.selectedModel.id;
               });
-              $scope.selectedModel = null;
-              $scope.formSuccess = 'Deleted ' + $scope.modelName;
+              handleSuccess('Deleted');
             }, handleError);
         };
+
+        function reset() {
+          $scope.formSuccess = null;
+          $scope.formError = null;
+          $scope.selectedModel = null;
+          $scope.name = "";
+        }
+
+        function handleSuccess(formSuccessMessage) {
+          reset();
+          $scope.formSuccess = formSuccessMessage + ' ' + $scope.modelName;
+        }
 
         function handleError(err) {
           console.log('error', err);

@@ -17,7 +17,7 @@
           <div class="form-group" ng-class="{'has-error': formError}">
             <label for="modelName">{{modelName}} Name</label><br />
             <label class="control-label" for="modelName" ng-show="formError">{{formError}}</label>
-            <input type="text" class="form-control" id="modelName" placeholder="Enter name" ng-model="selectedModel.name">
+            <input type="text" class="form-control" id="modelName" placeholder="Enter name" ng-model="name">
           </div>
           <button type="button" class="btn btn-primary" ng-show="mode == 'new'" ng-click="create()">Create</button>
           <button type="button" class="btn btn-primary" ng-show="mode == 'update'" ng-click="update()">Update</button>

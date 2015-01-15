@@ -112,6 +112,8 @@ OPTIONAL MATCH (org)-[:ASSIGNED_TO]-(contact)
 return org, collect(contact) AS contacts;
 ```
 
+## Considerations
+
 ## Rough amount of time spent on project
 
 ~18hr

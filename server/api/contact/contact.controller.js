@@ -6,6 +6,7 @@ var Contact = require('./contact.model');
 
 var handleError = util.handleError;
 var standardHandler = util.standardHandler;
+var emptyNameError = util.emptyNameError;
 
 exports.index = function(req, res) {
   Contact.getAll(function(err, contacts) {
@@ -24,9 +25,7 @@ exports.index = function(req, res) {
 // Creates a new contact
 exports.create = function(req, res) {
   if (_.isUndefined(req.body) || req.body.name === '') {
-    return handleError(res, {
-      "message": "You must provide a name"
-    });
+    return emptyNameError(req, res);
   }
   Contact.create(req.body, function(err, o) {
     if (err) {
@@ -41,7 +40,9 @@ exports.create = function(req, res) {
 
 // Update a contact name
 exports.update = function(req, res) {
-  validateName(req, res);
+  if (_.isUndefined(req.body) || req.body.name === '') {
+    return emptyNameError(req, res);
+  }
   Contact.update(parseInt(req.params.id), req.body.name, function(err) {
     return standardHandler(res, err);
   });
