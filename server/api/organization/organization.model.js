@@ -40,8 +40,9 @@ Organization.prototype.save = function(callback) {
 
 Organization.getAll = function(callback) {
   var query = [
-    'MATCH (org:Organization)',
-    'RETURN org',
+    "MATCH (org:Organization)",
+    "RETURN org",
+    "ORDER BY org.name"
   ].join('\n');
   db.query(query, null, function(err, results) {
     if (err) return callback(err);
@@ -56,7 +57,8 @@ Organization.getAllWithContacts = function(callback) {
   var query = [
     "MATCH (org:Organization)",
     "OPTIONAL MATCH (org)-[:ASSIGNED_TO]-(contact)", // optionally match ASSIGNED_TO relationships, returns orgs that also don't have relationships
-    "return org, collect(contact) AS contacts;"
+    "RETURN org, collect(contact) AS contacts",
+    "ORDER BY org.name"
   ].join('\n');
   db.query(query, null, function(err, results) {
     if (err) return callback(err);

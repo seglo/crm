@@ -38,8 +38,9 @@ Contact.prototype.save = function(callback) {
 
 Contact.getAll = function(callback) {
   var query = [
-    'MATCH (contact:Contact)',
-    'RETURN contact',
+    "MATCH (contact:Contact)",
+    "RETURN contact",
+    "ORDER BY contact.name"
   ].join('\n');
   db.query(query, null, function(err, results) {
     if (err) return callback(err);
@@ -60,8 +61,9 @@ Contact.create = function(data, callback) {
   // apply a label at the same time. (the save() method doesn't support
   // that, since it uses Neo4j's REST API, which doesn't support that.)
   var query = [
-    'CREATE (contact:Contact {data})',
-    'RETURN contact',
+    "CREATE (contact:Contact {data})",
+    "RETURN contact",
+    "ORDER BY contact.name"
   ].join('\n');
   var params = {
     data: data
