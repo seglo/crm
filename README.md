@@ -114,6 +114,11 @@ return org, collect(contact) AS contacts;
 
 ## Considerations
 
+* Changes made by users using the app at the same time aren't pushed to each unless they refresh their interface.
+* neo4j locks objects affected by a mutating command.  Implementer must maintain a queue of mutating commands to avoid locking errors.
+* CRUD operations & form validation could be handled by other libraries and reduce boilerplate code.
+* Need to investigate injection attack possibilities.  Couldn't break inputs with rudimentary techniques.
+
 ## Rough amount of time spent on project
 
 ~18hr
