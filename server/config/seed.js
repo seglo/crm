@@ -54,20 +54,20 @@ function createOrganizationConstraint() {
 function populateData() {
   var query = [
     // create contacts
-    "CREATE (matt:Contact { name : 'Matthew Shulz' })",
+    "CREATE (mike:Contact { name : 'Michael Schenn' })",
     "CREATE (sean:Contact { name : 'Sean Glover' })",
-    "CREATE (jared:Contact { name : 'Jared Conway'})",
+    "CREATE (john:Contact { name : 'John Callahan'})",
     // create organizations
-    "CREATE (avanti:Organization { name : 'Avanti Systems'})",
+    "CREATE (aonic:Organization { name : 'Aonic Systems'})",
     "CREATE (empathica:Organization { name : 'Empathica'})",
     "CREATE (umbrella:Organization { name : 'Umbrella Corp.'})",
     "CREATE (aperture:Organization { name : 'Aperture Science'})",
     // create assignments
-    "CREATE UNIQUE (matt)-[:ASSIGNED_TO]->(avanti)",
-    "CREATE UNIQUE (jared)-[:ASSIGNED_TO]->(avanti)",
+    "CREATE UNIQUE (mike)-[:ASSIGNED_TO]->(aonic)",
+    "CREATE UNIQUE (john)-[:ASSIGNED_TO]->(aonic)",
     "CREATE UNIQUE (sean)-[:ASSIGNED_TO]->(empathica)",
-    "CREATE UNIQUE (matt)-[:ASSIGNED_TO]->(umbrella)",
-    "CREATE UNIQUE (jared)-[:ASSIGNED_TO]->(umbrella)",
+    "CREATE UNIQUE (mike)-[:ASSIGNED_TO]->(umbrella)",
+    "CREATE UNIQUE (john)-[:ASSIGNED_TO]->(umbrella)",
     "CREATE UNIQUE (sean)-[:ASSIGNED_TO]->(umbrella);"
   ].join('\n');
   //console.log(query)
